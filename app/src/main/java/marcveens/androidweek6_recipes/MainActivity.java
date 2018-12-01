@@ -1,28 +1,39 @@
 package marcveens.androidweek6_recipes;
 
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
+    private static final List<String> recipes = new ArrayList<>();
+
+    private SectionsPagerAdapter mSectionsPagerAdapter;
+    private ViewPager mViewPager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        if (savedInstanceState == null) {
-            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-            RecipeDetailFragment fragment = new RecipeDetailFragment();
-            transaction.replace(R.id.pager, fragment);
-            transaction.commit();
-        }
+        recipes.add("Hi");
+        recipes.add("Hello");
 
-        requestData();
+        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager(), recipes);
+
+        mViewPager = findViewById(R.id.pager);
+        mViewPager.setAdapter(mSectionsPagerAdapter);
     }
 
     private void requestData()
